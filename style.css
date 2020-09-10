@@ -1,0 +1,213 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  z-index: 1;
+}
+
+body {
+  position: relative;
+  background-color: rgb(36, 35, 51);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+label {
+  color: white;
+}
+
+select {
+  height: 2rem;
+  border-radius: 5px;
+  margin-left: 0.5vw;
+  font-size: 16px;
+  padding: 5px 15px;
+  -webkit-appearance: none;
+  appearance: none;
+  text-align-last: center;
+}
+
+option {
+  text-align: center;
+}
+
+ul {
+  color: white;
+}
+
+p {
+  color: white;
+  margin: 0;
+}
+
+.showcase {
+  margin-top: 7vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 2% 5%;
+  color: #777;
+  border-radius: 5px;
+}
+
+.showcase li {
+  display: flex;
+  margin: 0 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.showcase li small {
+  margin-left: 4px;
+}
+
+span {
+  color: aquamarine;
+}
+
+.seat {
+  background-color: #444451;
+  height: 0.9rem;
+  width: 1rem;
+  margin: 3.5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.row {
+  display: flex;
+}
+
+.seat.selected {
+  background-color: #6feaf6;
+}
+
+.seat.occupied {
+  background-color: white;
+}
+
+.seat:nth-of-type(2) {
+  margin-right: 18px;
+}
+
+.seat:nth-last-of-type(2) {
+  margin-left: 18px;
+}
+
+.seat:not(.occupied):hover {
+  cursor: pointer;
+  transform: scale(1.3);
+}
+
+.showcase .seat:not(.occupied):hover {
+  cursor: default;
+  transform: scale(1);
+}
+
+.container {
+  margin-bottom: 30px;
+  perspective: 1000px;
+}
+
+.screen {
+  background-color: rgb(34, 34, 34);
+  height: 80px;
+  width: 100%;
+  box-shadow: 0 4px 12px white;
+  margin: 10px 0;
+  transform: rotateX(-45deg);
+}
+
+#buybox {
+  width: 10vw;
+  min-width: 120px;
+  background-color: rgb(71 71 71 / 55%);
+  margin-bottom: 2vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  display: none;
+}
+
+#buybox:hover,
+#pause:hover,
+#feedback:hover {
+  background-color: lightseagreen;
+}
+
+#confirm {
+  color: white;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+}
+
+#pause,
+#feedback {
+  font-size: 1.5em;
+  width: 1.5em;
+  font-weight: bolder;
+  border-radius: 10px;
+  border: none;
+  background-color: rgb(71 71 71 / 55%);
+  color: white;
+  display: none;
+}
+
+#feedback,
+#pause {
+  width: auto;
+  justify-content: center;
+}
+
+#lower-container {
+  display: flex;
+  justify-content: space-between;
+  width: 10vw;
+  min-width: 150px;
+}
+
+/*Snippet taken from codepen*/
+
+canvas {
+  border: 1px soild black;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

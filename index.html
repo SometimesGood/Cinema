@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cinema</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="movie-container">
+      
+      <label for="movie">Pick a movie:</label>
+      <select name="movie" id="movie">
+        <option value="" selected hidden>Choose one</option>
+        <optgroup label="Adult">
+          <option value="16">Always back down - (16$)</option>
+          <option value="14">some great show - (14$)</option>
+        </optgroup>
+        <optgroup label="Teenager">
+          <option value="12">Bla bla bla land - (12$)</option>
+          <option value="10">Almost Perfect - (10$)</option>
+        </optgroup>
+        <optgroup label="Kids">
+          <option value="8">Finding Gerald - (8$)</option>
+          <option value="6">Floor-e - (6$)</option>
+        </optgroup>
+      </select>
+      <canvas id="canvas">
+    </div>
+    <div id="seat-status">
+      <ul class="showcase">
+        <li>
+          <div class="seat"></div>
+          <small>N/A</small>
+        </li>
+        <li>
+          <div class="seat selected"></div>
+          <small>Selected</small>
+        </li>
+        <li>
+          <div class="seat occupied"></div>
+          <small>Occupied</small>
+        </li>
+      </ul>
+    </div>
+    <div class="container">
+      <div class="screen" id="screen"></div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+    </canvas>
+    </div>
+    <div id="buybox">
+      <a target="_blank" id="link"><button id="confirm">Confirm</button></a>
+    </div>
+<div class="tooltip" id="lower-container">
+<button title="pause the song" id="pause">||</button>
+<button  id="feedback">Feedback</button>
+</div>
+    <p class="p-text">
+      You have selected <span id="count">0</span> seats for a price of
+      <span id="total">$0</span>
+    </p>
+    <script src="script.js"></script>
+  </body>
+</html>
