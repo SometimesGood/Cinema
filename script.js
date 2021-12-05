@@ -1,79 +1,134 @@
 let totalseat = document.getElementById("count");
 let totalsum = document.getElementById("total");
-let seat = document.querySelectorAll(".row .seat:not(.occupied)");
+let seats = document.querySelectorAll(".row .seat:not(.occupied)");
 let pickmovie = document.getElementById("movie");
-let ticketprice = pickmovie.value;
+let ticketPrice = pickmovie.value;
 let seatcounter = 0;
+const container = document.querySelector(".container");
 let buybox = document.getElementById("buybox");
-buybox.value = ticketprice;
+buybox.value = ticketPrice;
 let feedback = document.getElementById("feedback");
 let pause = document.getElementById("pause");
 let link = document.getElementById("link");
 let screen = document.getElementById("screen");
 const moviecontainer = document.getElementById("movie-container");
 
-function saveseat() {
-  const selectedseats = document.querySelectorAll(".row .seat.selected");
-  const seatsindex = [...selectedseats].map(function (seated) {
-    return [...seat].indexOf(seated);
-  });
-  localStorage.setItem("savedseatplaces", JSON.stringify(seatsindex));
+populateUI();
+
+function setMovieData(movieIndex, moviePrice) {
+  localStorage.setItem("selectedMovieIndex", movieIndex);
+  localStorage.setItem("selectedMoviePrice", moviePrice);
 }
 
+function updateSelectedCount() {
+  const selectedSeats = document.querySelectorAll(".row .seat.selected");
+
+  const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
+
+  localStorage.setItem("selectedSeats", JSON.stringify(seatsIndex));
+
+  const selectedSeatsCount = selectedSeats.length;
+
+  count.innerText = selectedSeatsCount;
+  total.innerText = selectedSeatsCount * ticketPrice + "$";
+
+  setMovieData(pickmovie.selectedIndex, pickmovie.value);
+}
+
+// function saveseat() {
+//   const selectedseats = document.querySelectorAll(".row .seat.selected");
+//   const seatsindex = [...selectedseats].map(function (seated) {
+//     return [...seat].indexOf(seated);
+//   });
+//   localStorage.setItem("savedseatplaces", JSON.stringify(seatsindex));
+// }
+
+// function populateUI() {
+//   let selectedseats = JSON.parse(localStorage.getItem("savedseatplaces"));
+//   if (selectedseats !== null && selectedseats.length > 0) {
+//     seat.forEach((seats, index) => {
+//       if (selectedseats.indexOf(index) > -1) {
+//         seats.classList.add("selected");
+//       }
+//     });
+//   }
+// }
+
 function populateUI() {
-  let selectedseats = JSON.parse(localStorage.getItem("savedseatplaces"));
-  if (selectedseats !== null && selectedseats.length > 0) {
-    seat.forEach((seats, index) => {
-      if (selectedseats.indexOf(index) > -1) {
-        seats.classList.add("selected");
+  const selectedSeats = JSON.parse(localStorage.getItem("selectedSeats"));
+
+  if (selectedSeats !== null && selectedSeats.length > 0) {
+    seats.forEach((seat, index) => {
+      if (selectedSeats.indexOf(index) > -1) {
+        seat.classList.add("selected");
       }
     });
   }
-}
 
-seat.forEach((seats) => {
-  seats.addEventListener("click", (e) => {
-    seats.classList.toggle("selected");
-    saveseat();
-  });
-});
+  const selectedMovieIndex = localStorage.getItem("selectedMovieIndex");
 
-seat.forEach(function (seatcount) {
-  seatcount.addEventListener("click", (e) => {
-    ticketprice = pickmovie.value;
-    totalsum.innerHTML = seatcounter * ticketprice + "$";
-    if (e.target.classList.contains("selected")) {
-      seatcounter++;
-    } else {
-      seatcounter--;
-    }
-    totalseat.innerHTML = seatcounter;
-    localStorage.setItem("seatcounter", seatcounter);
-    localStorage.setItem("totalsumprice", totalsum.innerHTML);
-    localStorage.setItem("movie", pickmovie.value);
-    buy();
-  });
-});
-
-pickmovie.addEventListener("change", (e) => {
-  ticketprice = e.target.value;
-  totalsum.innerHTML = seatcounter * ticketprice + "$";
-  localStorage.setItem("movie", pickmovie.value);
-  localStorage.setItem("totalsumprice", totalsum.innerHTML);
-});
-
-function buy() {
-  if (seatcounter >= 1) {
-    buybox.style.display = "flex";
+  if (selectedMovieIndex !== null) {
+    pickmovie.selectedIndex = selectedMovieIndex;
   }
 }
-// Secret that is not in use anymore
 
-// var secretarr = [];
-// function secretarray() {
-//   addEventListener("keypress", (e) => {
-//     if (secretarr.includes(99) && secretarr.includes(108)) {
-//       var useranswer = prompt("Did you like the website? (yes/no) ");
+// seats.forEach((seat) => {
+//   seat.addEventListener("click", (e) => {
+//     seat.classList.toggle("selected");
+//     updateSelectedCount();
+//   });
+// });
+
+// Movie select event
+pickmovie.addEventListener("change", (e) => {
+  ticketPrice = e.target.value;
+  setMovieData(e.target.selectedIndex, e.target.value);
+  updateSelectedCount();
+});
+
+// Seat click event
+container.addEventListener("click", (e) => {
+  if (
+    e.target.classList.contains("seat") &&
+    !e.target.classList.contains("occupied")
+  ) {
+    e.target.classList.toggle("selected");
+
+    updateSelectedCount();
+    buy();
+  }
+});
+
+// Initial count and total set
+updateSelectedCount();
+
+// seats.forEach(function (seatcount) {
+//   seatcount.addEventListener("click", (e) => {
+//     ticketprice = pickmovie.value;
+//     totalsum.innerHTML = seatcounter * ticketprice + "$";
+//     if (e.target.classList.contains("selected")) {
+//       seatcounter++;
+//     } else {
+//       seatcounter--;
+//     }
+//     totalseat.innerHTML = seatcounter;
+//     localStorage.setItem("seatcounter", seatcounter);
+//     localStorage.setItem("totalsumprice", totalsum.innerHTML);
+//     localStorage.setItem("movie", pickmovie.value);
+//     buy();
+//   });
+// });
+
+// pickmovie.addEventListener("change", (e) => {
+//   ticketprice = e.target.value;
+//   totalsum.innerHTML = seatcounter * ticketprice + "$";
+//   localStorage.setItem("movie", pickmovie.value);
+//   localStorage.setItem("totalsumprice", totalsum.innerHTML);
+// });
+
+function buy() {
+  buybox.style.display = "flex";
+}
 
 function feedbacktome() {
   feedback.addEventListener("click", (e) => {
@@ -82,14 +137,6 @@ function feedbacktome() {
     if (useranswer == "ja") {
       party.play();
       document.getElementById("canvas").style.display = "block";
-
-      // no longer in use
-
-      // document.body.addEventListener("mousemove", (e) => {
-      //   x = e.clientX;
-      //   y = e.clientY;
-      //   document.body.style.backgroundColor = `rgb(${x + 100}, ${y}, ${100})`;
-      // });
 
       screen.addEventListener("mousemove", (e) => {
         x = e.clientX;
@@ -123,13 +170,13 @@ var party = new Audio("Music/Chicken dance remix (madness combat).mp3");
 
 buybox.addEventListener("click", (e) => {
   alert("Kos deg på kino!");
-  screen.style.boxShadow = "0 0 150px 5px whitesmoke";
+  screen.style.boxShadow = "0 0 25px 5px whitesmoke";
   screen.style.backgroundColor = "Whitesmoke";
   screen.style.border = "3px solid #444451";
 
   feedback.style.display = "flex";
   pause.style.display = "flex";
-  switch (ticketprice) {
+  switch (ticketPrice) {
     case "6":
       floore.play();
       break;
@@ -194,6 +241,14 @@ window.addEventListener("load", (e) => {
   // bring up buy button
   buy();
 });
+
+// Secret that is not in use anymore
+
+// var secretarr = [];
+// function secretarray() {
+//   addEventListener("keypress", (e) => {
+//     if (secretarr.includes(99) && secretarr.includes(108)) {
+//       var useranswer = prompt("Did you like the website? (yes/no) ");
 
 // js Snippets taken from codepen
 
